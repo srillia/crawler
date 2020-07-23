@@ -72,3 +72,5 @@ if __name__ == '__main__':
     """测试"""
     # path = PathUtil.getPathFromResources("context.ini")
     print(path_util.rootPath)
+
+

@@ -84,7 +84,7 @@ def is_gt_now_date(timestr):
 
 def save_to_file(name, text):
     pathUtil = PathUtil()
-    file = open(pathUtil.rootPath + "\\tmp\\" + name, 'w', encoding='utf-8')
+    file = open(pathUtil.rootPath + "/tmp/" + name, 'w', encoding='utf-8')
     file.write(text)
     file.close()
 
