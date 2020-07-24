@@ -13,3 +13,16 @@ class EduInfoItem(scrapy.Item):
     birth = scrapy.Field()
     link = scrapy.Field()
     date = scrapy.Field()
+
+
+class CNHvcEdu(scrapy.Item):
+    title = scrapy.Field()
+    content = scrapy.Field()
+    intro = scrapy.Field()
+    origin = scrapy.Field()
+    birth = scrapy.Field()
+    date = scrapy.Field()
+    link = scrapy.Field()
+    column = scrapy.Field()
+    source = scrapy.Field()
+    page = scrapy.Field()
