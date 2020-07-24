@@ -11,13 +11,11 @@ password = settings["MONGO_PASSWORD"]
 conn = MongoClient("mongodb://" + account + ":" + password + "@" + host + ":" + str(port) + "/")
 
 db = conn['spider']
-edu = db["cn_hvc_edu"]
+edu = db["edu_info"]
 
 
 # 定义一个函数
 def insert_one(data):
-    print("-------------------------------------",conn)
-    print("-------------------------------------",db)
     edu.insert_one(data)
 
 
