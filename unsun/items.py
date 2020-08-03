@@ -15,6 +15,26 @@ class EduInfoItem(scrapy.Item):
     date = scrapy.Field()
 
 
+# 广西教育厅
+class GxjytInfoItem(scrapy.Item):
+    # 广西壮族自治区教育厅
+    origin = scrapy.Field()
+    # 教育要闻
+    column = scrapy.Field()
+    # 标题
+    title = scrapy.Field()
+    # 日期
+    birth = scrapy.Field()
+    # 地址
+    link = scrapy.Field()
+    # 详细时间
+    date = scrapy.Field()
+    # 来源
+    from_origin = scrapy.Field()
+    # 内容
+    content = scrapy.Field()
+
+
 class CNHvcEdu(scrapy.Item):
     title = scrapy.Field()
     content = scrapy.Field()

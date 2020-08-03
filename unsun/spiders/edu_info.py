@@ -1,9 +1,11 @@
 import time
+
 import scrapy
 from scrapy_splash import SplashRequest
 
 from lib import common
 from unsun.items import EduInfoItem
+from unsun.items import GxjytInfoItem
 
 
 class EduInfoSpider(scrapy.Spider):
@@ -56,10 +58,10 @@ class GfjybSpider(scrapy.Spider):
     allowed_domains = ['www.moe.gov.cn']
     start_urls = ['http://www.moe.gov.cn/jyb_sy/sy_jyyw/']
 
-    #开始页面 初始化page参数为1
+    # 开始页面 初始化page参数为1
     def start_requests(self):
         for url in self.start_urls:
-            #开始
+            # 开始
             yield SplashRequest(url, callback=self.parse)
 
     def parse(self, response):
@@ -68,7 +70,8 @@ class GfjybSpider(scrapy.Spider):
         print(origin)
         # 保存下载html文件
         common.save_to_file("gfjyb_edu_info.html", response.text)
-        next_url = response.xpath("//div[@class='scy_tylb_fy-nr']//li[@class='m_page_a m_page_btn'][2]/a/@href").extract_first()
+        next_url = response.xpath(
+            "//div[@class='scy_tylb_fy-nr']//li[@class='m_page_a m_page_btn'][2]/a/@href").extract_first()
         next_page = response.urljoin(next_url)
         column = "教育要闻"
         items = response.xpath("//div[@id='wcmpagehtml']//ul[@id='list']/li")

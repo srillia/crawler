@@ -14,7 +14,7 @@ from lib import mongo_lib, common
 
 class UnsunPipeline:
     def process_item(self, item, spider):
-        birth = item["birth"]
+        # birth = item["birth"]
         # if common.is_gt_now_date(birth):
         # 去重复
         criteria = dict(item)
