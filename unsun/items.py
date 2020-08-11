@@ -13,7 +13,10 @@ class EduInfoItem(scrapy.Item):
     birth = scrapy.Field()
     link = scrapy.Field()
     date = scrapy.Field()
-
+    # 来源
+    from_origin = scrapy.Field()
+    # 内容
+    content = scrapy.Field()
 
 # 广西教育厅
 class GxjytInfoItem(scrapy.Item):
