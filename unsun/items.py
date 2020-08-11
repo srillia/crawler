@@ -49,3 +49,24 @@ class CNHvcEdu(scrapy.Item):
     column = scrapy.Field()
     source = scrapy.Field()
     page = scrapy.Field()
+
+
+class BGzjInfoItem(scrapy.Item):
+    # 来源
+    origin = scrapy.Field()
+    # 项目
+    column = scrapy.Field()
+    # 标题
+    title = scrapy.Field()
+    # 文章发布时间
+    birth = scrapy.Field()
+    # 链接
+    link = scrapy.Field()
+    # 爬取时间
+    date = scrapy.Field()
+    # 文章来源
+    source = scrapy.Field()
+    # 文章内容
+    content =scrapy.Field()
+    # 文章作者
+    author = scrapy.Field()
