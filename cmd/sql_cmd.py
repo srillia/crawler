@@ -5,7 +5,7 @@ import pymysql
 #查询启用状态的数据源
 class MysqlDB:
 
-    def querytest(self):
+    def querystart(self):
         # 打开数据库连接
         db = pymysql.Connect(
             host='192.168.10.235',

@@ -19,7 +19,7 @@ def crawl():
         # #yield runner.crawl("edu_info")
         # yield runner.crawl("gfjyb_edu_info")
         # 查询启用状态的数据源
-        results = MysqlDB.querytest(0)
+        results = MysqlDB.querystart(0)
         for row in results:
             origin_id = row[0]
             scrapy_name = row[1]
