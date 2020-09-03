@@ -18,7 +18,7 @@ class MysqlDB:
         # 使用cursor()方法获取操作游标
         cursor = db.cursor()
         # SQL 查询语句
-        sql = "SELECT do.id,s.scrapy_name,do.url FROM data_origin `do` ,script s WHERE do.`script_id` = s.id  AND do.`status` = 0"
+        sql = "SELECT do.id,s.scrapy_name,do.url FROM data_origin `do` ,script s WHERE do.`script_id` = s.id  AND do.`status` = 0 AND do.is_delete =0"
         try:
             # 执行SQL语句
             cursor.execute(sql)
