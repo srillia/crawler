@@ -11,7 +11,7 @@ password = settings["MONGO_PASSWORD"]
 conn = MongoClient("mongodb://" + account + ":" + password + "@" + host + ":" + str(port) + "/")
 
 db = conn['spider']
-edu = db["edu_info"]
+edu = db["cn_hvc_edu"]
 
 
 # 定义一个函数

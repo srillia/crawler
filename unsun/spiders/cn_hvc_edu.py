@@ -1,3 +1,4 @@
+import logging
 import time
 
 import scrapy
@@ -8,10 +9,17 @@ from unsun.items import CNHvcEdu
 class CNHvcEduSpider(scrapy.Spider):
     name = 'CNHvcEdu'
     allowed_domains = ['tech.net.cn']
-    start_urls = ['http://www.tech.net.cn/news/list/100.html','http://www.tech.net.cn/news/list/101.html','http://www.tech.net.cn/news/list/102.html']
+    origin_id = 0
 
+    # start_urls = ['http://www.tech.net.cn/news/list/100.html','http://www.tech.net.cn/news/list/101.html','http://www.tech.net.cn/news/list/102.html']
+    # start_urls= url
     # def __bytes__(self):
     #     return str(self).encode("utf-8")
+    def __init__(self, oderurl=None,origin_id=None, *args, **kwargs):
+        super(CNHvcEduSpider, self).__init__(*args, **kwargs)
+        self.start_urls = ['%s' % oderurl]
+        self.origin_id = '%s' % origin_id
+
 
     def parse(self, response):
         # print("---------------------------------------------------------------------------------------")
@@ -37,6 +45,7 @@ class CNHvcEduSpider(scrapy.Spider):
                 news_info = CNHvcEdu()
                 news_info["link"] = link
                 news_info["page"] = page
+                news_info["dataOriginId"] = self.origin_id
                 yield scrapy.Request(news_info["link"], meta={"news_info": news_info,"page":page})
                 # time.sleep(1)
 
@@ -68,7 +77,7 @@ class CNHvcEduSpider(scrapy.Spider):
                 news_info["date"] = date
                 news_info["birth"] = birth
                 news_info["intro"] = intro
-                news_info["source"] = source
+                news_info["organ"] = source
                 news_info["origin"] = "中国高职高专网"
                 news_info["title"] = title
                 news_info["column"] = column

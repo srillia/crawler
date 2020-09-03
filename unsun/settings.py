@@ -102,7 +102,7 @@ SPLASH_URL = 'http://192.168.10.236:8050/'
 DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
 HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 
-MONGO_HOST = "192.168.10.226"
+MONGO_HOST = "192.168.10.235"
 MONGO_PORT = 27017
 MONGO_ACCOUNT = "root"
 MONGO_PASSWORD = "123"

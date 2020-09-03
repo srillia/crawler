@@ -3,6 +3,20 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/items.html
 
+# todo 尽量保证item一致，存在一个库当中
+# 主键 id
+# 数据来源平台 origin
+# 数据开源平台的栏目 column
+# 标题 title
+# 发文日期  date
+# 获取时间  birth
+# 正文  content
+# 发文机构 organ
+# 作者  author
+# 简介  intro
+# 发文字号 newsNumber
+# 来源链接 link
+# 数据源id   dataOriginId
 import scrapy
 
 
@@ -47,8 +61,9 @@ class CNHvcEdu(scrapy.Item):
     date = scrapy.Field()
     link = scrapy.Field()
     column = scrapy.Field()
-    source = scrapy.Field()
+    organ = scrapy.Field()
     page = scrapy.Field()
+    dataOriginId = scrapy.Field()
 
 
 class BGzjInfoItem(scrapy.Item):
