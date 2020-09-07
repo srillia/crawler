@@ -20,17 +20,21 @@
 import scrapy
 
 
-class EduInfoItem(scrapy.Item):
+# 通用爬虫item
+class CommonItem(scrapy.Item):
     origin = scrapy.Field()
     column = scrapy.Field()
     title = scrapy.Field()
     birth = scrapy.Field()
-    link = scrapy.Field()
     date = scrapy.Field()
-    # 来源
-    from_origin = scrapy.Field()
-    # 内容
+    link = scrapy.Field()
     content = scrapy.Field()
+    organ = scrapy.Field()
+    author = scrapy.Field()
+    intro = scrapy.Field()
+    newsNumber = scrapy.Field()
+    dataOriginId = scrapy.Field()
+
 
 # 广西教育厅
 class GxjytInfoItem(scrapy.Item):
@@ -82,6 +86,6 @@ class BGzjInfoItem(scrapy.Item):
     # 文章来源
     source = scrapy.Field()
     # 文章内容
-    content =scrapy.Field()
+    content = scrapy.Field()
     # 文章作者
     author = scrapy.Field()
