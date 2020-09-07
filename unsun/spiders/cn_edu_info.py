@@ -131,10 +131,10 @@ class CNEduInfoInform(scrapy.Spider):
     # start_urls = ['http://www.moe.gov.cn/jyb_xxgk/s5743/s5972/']
     start_urls = ['http://www.moe.gov.cn/jyb_xxgk/s5743/s5972/index_24.html']
 
-    def __init__(self, oderurl=None, origin_id=None, *args, **kwargs):
-        super(CNEduInfoEdu, self).__init__(*args, **kwargs)
-        self.start_urls = ['%s' % oderurl]
-        self.origin_id = '%s' % origin_id
+    # def __init__(self, oderurl=None, origin_id=None, *args, **kwargs):
+    #     super(CNEduInfoEdu, self).__init__(*args, **kwargs)
+    #     self.start_urls = ['%s' % oderurl]
+    #     self.origin_id = '%s' % origin_id
 
     # 开始页面 初始化page参数为1
     def start_requests(self):
@@ -229,10 +229,10 @@ class CNEduInfoInform(scrapy.Spider):
             context = content.xpath("./div[@id='xxgk_content_div']").extract()
             # 发文机构
             organ = content.xpath(
-                "./table[@id='xxgk_head_table']/tbody/tr[2]/td[@class='gongkai_font_gray'][3]").extract_first()
+                "./table[@id='xxgk_head_table']/tbody/tr[2]/td[@class='gongkai_font_gray'][3]/text()").extract_first()
             # 发文字号
             newsnumber = content.xpath(
-                "./table[@id='xxgk_head_table']/tbody/tr[3]/td[@class='gongkai_font_gray'][1]").extract_first()
+                "./table[@id='xxgk_head_table']/tbody/tr[3]/td[@class='gongkai_font_gray'][1]/text()").extract_first()
             item["content"] = context[0]
             item["organ"] = organ
             item["newsNumber"] = newsnumber
