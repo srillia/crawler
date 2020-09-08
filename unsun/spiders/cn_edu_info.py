@@ -129,12 +129,12 @@ class CNEduInfoInform(scrapy.Spider):
     allowed_domains = ['www.moe.gov.cn', 'mp.weixin.qq.com', 'www.scio.gov.cn', 'politics.people.com.cn',
                        'paper.people.com.cn', 'www.china.com.cn']
     # start_urls = ['http://www.moe.gov.cn/jyb_xxgk/s5743/s5972/']
-    start_urls = ['http://www.moe.gov.cn/jyb_xxgk/s5743/s5972/index_24.html']
+    # start_urls = ['http://www.moe.gov.cn/jyb_xxgk/s5743/s5972/index_24.html']
 
-    # def __init__(self, oderurl=None, origin_id=None, *args, **kwargs):
-    #     super(CNEduInfoEdu, self).__init__(*args, **kwargs)
-    #     self.start_urls = ['%s' % oderurl]
-    #     self.origin_id = '%s' % origin_id
+    def __init__(self, oderurl=None, origin_id=None, *args, **kwargs):
+        super(CNEduInfoInform, self).__init__(*args, **kwargs)
+        self.start_urls = ['%s' % oderurl]
+        self.origin_id = '%s' % origin_id
 
     # 开始页面 初始化page参数为1
     def start_requests(self):
