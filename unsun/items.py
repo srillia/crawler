@@ -22,17 +22,29 @@ import scrapy
 
 # 通用爬虫item
 class CommonItem(scrapy.Item):
+    #数据来源平台
     origin = scrapy.Field()
+    # 数据开源平台的栏目
     column = scrapy.Field()
+    # 标题
     title = scrapy.Field()
+    # 获取时间
     birth = scrapy.Field()
+    # 发文日期
     date = scrapy.Field()
+    # 来源链接
     link = scrapy.Field()
+    # 正文
     content = scrapy.Field()
+    # 发文机构
     organ = scrapy.Field()
+    # 作者
     author = scrapy.Field()
+    # 简介
     intro = scrapy.Field()
+    # 发文字号
     newsNumber = scrapy.Field()
+    # 数据源id
     dataOriginId = scrapy.Field()
 
 
