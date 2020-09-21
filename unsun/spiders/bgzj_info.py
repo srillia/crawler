@@ -6,7 +6,8 @@ import scrapy
 from scrapy_splash import SplashRequest
 
 from lib.common import save_to_file
-from unsun.items import BGzjInfoItem
+from unsun.items import CommonItem
+from unsun.spiders.cn_hvc_edu import CNHvcEduSpider
 
 
 class BGzjSpider(scrapy.Spider):
@@ -33,9 +34,9 @@ class BGzjSpider(scrapy.Spider):
 
         items = response.xpath(
             "//div[@class='d-h d-h-content']/div[@class='container clearfix']/div[@class='search_fl_Content']/div[@class='top-10']/div[@class='title trim']")
-        bgzi_info_item = BGzjInfoItem()
+        bgzi_info_item = CommonItem()
         bgzi_info_item['origin'] = origin
-        bgzi_info_item['date'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        bgzi_info_item['birth'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         # for detail in detail_url:
         #     if detail is not None:
         #         yield SplashRequest(detail, callback=self.parse)
@@ -71,37 +72,44 @@ class BGzjSpider(scrapy.Spider):
                 pass
 
     def parse_content(self, response):
-        item = BGzjInfoItem()
+        item = CommonItem()
         item['link'] = response.url
         # 详情内容页面链接
+        # 标题
         detail_title = response.xpath(
             "//div[@class='container clearfix']/div[@class='search_fl_Content']/div[@class='fTitle']/text()").extract_first()
         detail_url = response.xpath(
             "//div[@class='search_fl_Content']/div[@class='top-10'] /div[@class='title trim']/a/@href")
+        # 数据来源 栏目
         detail_column = response.xpath(
             "//div[@class='container clearfix']/div[@class='search_fl_Content']/div[@class='top-10']/div[@class='fPost']/a[3]/text()").extract_first()
+        # 部分页面html不一样
         other_detail_column = response.xpath(
             "//div[@class='container clearfix']/div[@class='search_fl_Content']/div[@class='top-10']/div[@class='fPost']/a/text()").extract_first()
-        detail_source = response.xpath(
+        # 发文机构
+        detail_organ = response.xpath(
             "//div[@class='container clearfix']/div[@class='search_fl_Content']/div[@class='flai']/span[1]/text()").extract_first()
+        # 发文作者
         detail_author = response.xpath(
             "//div[@class='container clearfix']/div[@class='search_fl_Content']/div[@class='flai']/span[2]/text()").extract_first()
+        # 发文时间
         detail_birth = response.xpath(
             "//div[@class='container clearfix']/div[@class='search_fl_Content']/div[@class='flai']/span[3]/text()").extract_first()
+        # 文章内容
         detail_content = response.xpath(
             "//div[@class='container clearfix']/div[@class='search_fl_Content']/div[@class='fcontent']/div[@class='contentBoxF']/p|//div[@class='container clearfix']/div[@class='search_fl_Content']/div[@class='fcontent']/div[@class='contentBoxF']/div")
 
         item['title'] = detail_title
         # print(bgzi_info_item)
         if detail_column is not None:
-         item['column'] = detail_column
+         item ['column'] = detail_column
         else :
             item['column'] =other_detail_column
         # print(bgzi_info_item)
         # if detail_source is not None:
-        item['source'] = detail_source
+        item['organ'] = detail_organ
         # print(bgzi_info_item)
-
+        item["dataOriginId"] = self.origin_id
         # if detail_author is not None:
         item['author'] = detail_author
         # print(bgzi_info_item)
@@ -129,3 +137,12 @@ class BGzjSpider(scrapy.Spider):
         # fo.close()
         yield item
 
+ ## 数据源id
+    origin_id = 0
+
+    def __init__(self, oderurl=None,origin_id=None, *args, **kwargs):
+        super(CNHvcEduSpider, self).__init__(*args, **kwargs)
+        #将传入的url赋值给start_urls
+        self.start_urls = ['%s' % oderurl]
+        #将数据源id赋值给origin_id
+        self.origin_id = '%s' % origin_id
