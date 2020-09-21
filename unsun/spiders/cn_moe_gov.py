@@ -4,8 +4,7 @@ import scrapy
 from scrapy_splash import SplashRequest
 
 from lib import common
-from unsun.items import GxjytInfoItem
-
+from unsun.items import CommonItem
 
 
 # 广西壮族自治区教育厅网站
@@ -13,6 +12,12 @@ class GxjytSpider(scrapy.Spider):
     name = 'gxjyt_jyyw_info'
     allowed_domains = ['jyt.gxzf.gov.cn']
     start_urls = ['http://jyt.gxzf.gov.cn/jyxw/jyyw/']
+    origin_id = 0
+
+    def __init__(self, oderurl=None, origin_id=None, *args, **kwargs):
+        super(GxjytSpider, self).__init__(*args, **kwargs)
+        self.start_urls = ['%s' % oderurl]
+        self.origin_id = '%s' % origin_id
 
     # 开始页面 初始化page参数为1
     def start_requests(self):
@@ -62,16 +67,17 @@ class GxjytSpider(scrapy.Spider):
         column = "教育要闻"
         date = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         birth = origin_and_birth[0]
-        from_origin = "广西壮族自治区教育厅"
+        organ = "广西壮族自治区教育厅"
         if len(origin_and_birth) > 1:
             from_origin = origin_and_birth[1].lstrip().replace("来源：", "")
-        gxjyt_info_item = GxjytInfoItem()
+        gxjyt_info_item = CommonItem()
         gxjyt_info_item["origin"] = origin
         gxjyt_info_item["column"] = column
         gxjyt_info_item["title"] = title
         gxjyt_info_item["link"] = link
         gxjyt_info_item["birth"] = birth
         gxjyt_info_item["date"] = date
-        gxjyt_info_item["from_origin"] = from_origin
+        gxjyt_info_item["organ"] = organ
         gxjyt_info_item["content"] = content
+        gxjyt_info_item["dataOriginId"] = self.origin_id
         yield gxjyt_info_item
