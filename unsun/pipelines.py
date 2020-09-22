@@ -19,7 +19,6 @@ class UnsunPipeline:
         # 去重复
         criteria = dict(item)
         del criteria['date']
-        del criteria['page']
         result = mongo_lib.find_one(criteria)
         if result is None:
             mongo_lib.insert_one(dict(item))

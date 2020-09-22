@@ -3,18 +3,16 @@ import time
 
 import scrapy
 
-from unsun.items import CNHvcEdu
+from unsun.items import CommonItem
 
 
 class CNHvcEduSpider(scrapy.Spider):
     name = 'CNHvcEdu'
     allowed_domains = ['tech.net.cn']
+    start_urls = ['http://www.tech.net.cn/news/list/100.html','http://www.tech.net.cn/news/list/101.html','http://www.tech.net.cn/news/list/102.html']
+    ## 数据源id
     origin_id = 0
 
-    # start_urls = ['http://www.tech.net.cn/news/list/100.html','http://www.tech.net.cn/news/list/101.html','http://www.tech.net.cn/news/list/102.html']
-    # start_urls= url
-    # def __bytes__(self):
-    #     return str(self).encode("utf-8")
     def __init__(self, oderurl=None,origin_id=None, *args, **kwargs):
         super(CNHvcEduSpider, self).__init__(*args, **kwargs)
         self.start_urls = ['%s' % oderurl]
@@ -42,11 +40,10 @@ class CNHvcEduSpider(scrapy.Spider):
                 link = p + url.extract()
                 i = i + 1
                 # print("link", i, ":", link)
-                news_info = CNHvcEdu()
+                news_info = CommonItem()
                 news_info["link"] = link
-                news_info["page"] = page
                 news_info["dataOriginId"] = self.origin_id
-                yield scrapy.Request(news_info["link"], meta={"news_info": news_info,"page":page})
+                yield scrapy.Request(news_info["link"], meta={"news_info": news_info})
                 # time.sleep(1)
 
             # 翻页
@@ -71,8 +68,6 @@ class CNHvcEduSpider(scrapy.Spider):
                     source = source.split(': ')[-1]
                 # print("----------------------", birth)
                 news_info = response.meta["news_info"]
-                page = response.meta["page"]
-                news_info["page"] = column+"-"+page
                 news_info["content"] = content
                 news_info["date"] = date
                 news_info["birth"] = birth
@@ -90,7 +85,13 @@ class CNHvcEduSpider_reform(scrapy.Spider):
     name = 'CNHvcEdu_reform'
     allowed_domains = ['tech.net.cn']
     start_urls = ['https://www.tech.net.cn/news/88.html']
+    ## 数据源id
+    origin_id = 0
 
+    def __init__(self, oderurl=None,origin_id=None, *args, **kwargs):
+        super(CNHvcEduSpider, self).__init__(*args, **kwargs)
+        self.start_urls = ['%s' % oderurl]
+        self.origin_id = '%s' % origin_id
 
     def parse(self, response):
         # print("---------------------------------------------------------------------------------------")
@@ -98,7 +99,6 @@ class CNHvcEduSpider_reform(scrapy.Spider):
         # print(newsName)
         # list =[]
         p = "http://www.tech.net.cn"
-
 
         # 列表页
         news_urls = response.xpath("//h4/a/@href")
@@ -113,10 +113,10 @@ class CNHvcEduSpider_reform(scrapy.Spider):
                 link = p + url.extract()
                 i = i + 1
                 # print("link", i, ":", link)
-                news_info = CNHvcEdu()
+                news_info = CommonItem()
                 news_info["link"] = link
-                news_info["page"] = page
-                yield scrapy.Request(news_info["link"], meta={"news_info": news_info,"page":page})
+                news_info["dataOriginId"] = self.origin_id
+                yield scrapy.Request(news_info["link"], meta={"news_info": news_info})
                 # time.sleep(1)
 
             # 翻页
@@ -139,8 +139,6 @@ class CNHvcEduSpider_reform(scrapy.Spider):
                     source = source.split(': ')[-1]
                 # print("----------------------", birth)
                 news_info = response.meta["news_info"]
-                page = response.meta["page"]
-                news_info["page"] = column+"-"+page
                 news_info["content"] = content
                 news_info["date"] = date
                 news_info["birth"] = birth

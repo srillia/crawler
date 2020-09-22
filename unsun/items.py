@@ -78,7 +78,6 @@ class CNHvcEdu(scrapy.Item):
     link = scrapy.Field()
     column = scrapy.Field()
     organ = scrapy.Field()
-    page = scrapy.Field()
     dataOriginId = scrapy.Field()
 
 
