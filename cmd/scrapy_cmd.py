@@ -4,7 +4,7 @@ from scrapy.utils.log import configure_logging
 import time
 import logging
 from scrapy.utils.project import get_project_settings
-from cmd.sql_cmd import MysqlDB
+from sql_cmd import MysqlDB
 
 # 在控制台打印日志
 configure_logging()
