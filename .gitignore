@@ -1,1 +1,15 @@
-/tmp
+*.class
+*.jar
+*.war
+*.ear
+**/bin/
+*.iml
+*.iws
+.idea
+build/
+out/
+.gradle
+*.project
+.settings/
+*.classpath
+!/.gitignore
